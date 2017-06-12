@@ -100,6 +100,10 @@
                 "title": "julia: Toggle Linter"
             },
             {
+                "command": "language-julia.evaluate-cell",
+                "title": "julia: Evaluate Cell"
+            },
+            {
                 "command": "language-julia.weave-open-preview",
                 "title": "julia Weave: Open Preview"
             },

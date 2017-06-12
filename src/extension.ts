@@ -127,6 +127,12 @@ export function activate(context: vscode.ExtensionContext) {
     let plotpanedel = vscode.commands.registerCommand('language-julia.plotpane-delete', plotPaneDel);
     context.subscriptions.push(plotpanedel);    
 
+    let evalcell = vscode.commands.registerCommand('language-julia.evaluate-cell1', evaluateCell);
+    context.subscriptions.push(evalcell);    
+
+    let getcell = vscode.commands.registerCommand('language-julia.evaluate-cell', getCell);
+    context.subscriptions.push(getcell);    
+    
     startREPLconnectionServer();
 
     weaveProvider = new WeaveDocumentContentProvider();
@@ -684,5 +690,26 @@ function plotPaneDel() {
             currentPlotIndex = plots.length - 1;
         }
         plotPaneProvider.update();
+    }
+}
+
+export function evaluateCell(code) {
+    REPLterminal.sendText(code)
+}
+
+export function getCell() {
+    let currentUri = vscode.window.activeTextEditor.document.uri.toString()
+    let currentPosition = vscode.window.activeTextEditor.selection.active
+    let currentOffset = vscode.window.activeTextEditor.document.offsetAt(currentPosition)
+    try {
+        languageClient.sendRequest("textDocument/getCell", {currentUri, currentOffset});
+    }
+    catch(ex) {
+        if(ex.message=="Language client is not ready yet") {
+            vscode.window.showErrorMessage('Error: evaluating a cell only works with a running julia language server.');
+        }
+        else {
+            throw ex;
+        }
     }
 }
