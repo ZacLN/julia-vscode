@@ -1,504 +1,509 @@
 {
-    "name": "language-julia",
-    "displayName": "Julia",
-    "description": "Julia Language Support",
-    "version": "0.13.2-DEV",
-    "publisher": "julialang",
-    "engines": {
-        "vscode": "^1.35.0"
-    },
-    "license": "SEE LICENSE IN LICENSE",
-    "bugs": {
-        "url": "https://github.com/julia-vscode/julia-vscode/issues"
-    },
-    "homepage": "https://www.julia-vscode.org/",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/julia-vscode/julia-vscode.git"
-    },
-    "icon": "images/julia-logo.png",
-    "categories": [
-        "Programming Languages",
-        "Snippets",
-        "Linters"
-    ],
-    "activationEvents": [
-        "onCommand:language-julia.openPackageDirectory",
-        "onCommand:language-julia.changeCurrentEnvironment",
-        "onCommand:language-julia.startREPL",
-        "onCommand:language-julia.executeJuliaCodeInREPL",
-        "onCommand:language-julia.executeJuliaFileInREPL",
-        "onCommand:language-julia.toggleLinter",
-        "onCommand:language-julia.weave-open-preview",
-        "onCommand:language-julia.weave-open-preview-side",
-        "onCommand:language-julia.weave-save",
-        "onCommand:language-julia.show-plotpane",
-        "onCommand:language-julia.toggle-file-lint",
-        "onCommand:language-julia.executeJuliaCellInREPL",
-        "onCommand:language-julia.executeJuliaBlockInREPL",
-        "onCommand:language-julia.selectBlock",
-        "onLanguage:julia",
-        "onLanguage:juliamarkdown",
-        "workspaceContains:deps/build.jl",
-        "workspaceContains:test/runtests.jl",
-        "workspaceContains:benchmark/benchmarks.jl",
-        "workspaceContains:docs/make.jl"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "languages": [
-            {
-                "id": "julia",
-                "aliases": [
-                    "Julia",
-                    "julia"
-                ],
-                "extensions": [
-                    ".jl"
-                ],
-                "firstLine": "^#!\\s*/.*\\bjulia[0-9.-]*\\b",
-                "configuration": "./julia.configuration.json"
-            },
-            {
-                "id": "juliamarkdown",
-                "aliases": [
-                    "Julia Markdown",
-                    "juliamarkdown"
-                ],
-                "extensions": [
-                    ".jmd"
-                ]
-            }
-        ],
-        "grammars": [
-            {
-                "language": "julia",
-                "scopeName": "source.julia",
-                "path": "./syntaxes/julia.json",
-                "embeddedLanguages": {
-                    "meta.embedded.inline.cpp": "cpp",
-                    "meta.embedded.inline.javascript": "javascript",
-                    "meta.embedded.inline.markdown": "juliamarkdown",
-                    "meta.embedded.inline.python": "python",
-                    "meta.embedded.inline.r": "r"
-                }
-            },
-            {
-                "language": "juliamarkdown",
-                "scopeName": "text.html.markdown.julia",
-                "path": "./syntaxes/juliamarkdown.json"
-            },
-            {
-                "scopeName": "markdown.julia.codeblock",
-                "path": "./syntaxes/juliacodeblock.json",
-                "injectTo": [
-                    "text.html.markdown"
-                ],
-                "embeddedLanguages": {
-                    "meta.embedded.block.julia": "julia"
-                }
-            }
-        ],
-        "commands": [
-            {
-                "command": "language-julia.openPackageDirectory",
-                "title": "Julia: Open Package Directory in New Window"
-            },
-            {
-                "command": "language-julia.changeCurrentEnvironment",
-                "title": "Julia: Change Current Environment"
-            },
-            {
-                "command": "language-julia.startREPL",
-                "title": "Julia: Start REPL"
-            },
-            {
-                "command": "language-julia.executeJuliaCodeInREPL",
-                "title": "Julia: Execute Code"
-            },
-            {
-                "command": "language-julia.executeJuliaFileInREPL",
-                "title": "Julia: Execute File"
-            },
-            {
-                "command": "language-julia.toggleLinter",
-                "title": "Julia: Toggle Linter"
-            },
-            {
-                "command": "language-julia.weave-open-preview",
-                "title": "Julia Weave: Open Preview"
-            },
-            {
-                "command": "language-julia.weave-open-preview-side",
-                "title": "Julia Weave: Open Preview to the Side"
-            },
-            {
-                "command": "language-julia.weave-save",
-                "title": "Julia Weave: Save to File..."
-            },
-            {
-                "command": "language-julia.show-plotpane",
-                "title": "Julia: Show Plot"
-            },
-            {
-                "command": "language-julia.plotpane-next",
-                "title": "Julia: Show Next Plot",
-                "icon": {
-                    "light": "./media/next.svg",
-                    "dark": "./media/next-inverse.svg"
-                }
-            },
-            {
-                "command": "language-julia.plotpane-previous",
-                "title": "Julia: Show Previous Plot",
-                "icon": {
-                    "light": "./media/previous.svg",
-                    "dark": "./media/previous-inverse.svg"
-                }
-            },
-            {
-                "command": "language-julia.plotpane-first",
-                "title": "Julia: Show First Plot"
-            },
-            {
-                "command": "language-julia.plotpane-last",
-                "title": "Julia: Show Last Plot"
-            },
-            {
-                "command": "language-julia.plotpane-delete",
-                "title": "Julia: Delete plot",
-                "icon": {
-                    "light": "./media/delete.svg",
-                    "dark": "./media/delete-inverse.svg"
-                }
-            },
-            {
-                "command": "language-julia.plotpane-delete-all",
-                "title": "Julia: Delete All Plots"
-            },
-            {
-                "command": "language-julia.toggle-file-lint",
-                "title": "Julia: Toggle File Linting"
-            },
-            {
-                "command": "language-julia.toggle-log",
-                "title": "Julia: Toggle Server Logs"
-            },
-            {
-                "command": "language-julia.executeJuliaCellInREPL",
-                "title": "Julia: Execute Code Cell"
-            },
-            {
-                "command": "language-julia.executeJuliaBlockInREPL",
-                "title": "Julia: Execute Code Block"
-            },
-            {
-                "command": "language-julia.selectBlock",
-                "title": "Julia: Select Code Block"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "when": "resourceLangId == julia",
-                    "command": "language-julia.toggle-file-lint"
-                },
-                {
-                    "when": "explorerResourceIsFolder",
-                    "command": "language-julia.toggle-file-lint"
-                }
-            ],
-            "editor/title": [
-                {
-                    "when": "jlplotpaneFocus",
-                    "command": "language-julia.plotpane-delete",
-                    "group": "navigation@0"
-                },
-                {
-                    "when": "jlplotpaneFocus",
-                    "command": "language-julia.plotpane-next",
-                    "group": "navigation@-1"
-                },
-                {
-                    "when": "jlplotpaneFocus",
-                    "command": "language-julia.plotpane-previous",
-                    "group": "navigation@-2"
-                },
-                {
-                    "when": "jlplotpaneFocus",
-                    "command": "language-julia.plotpane-delete-all"
-                }
-            ],
-            "commandPalette": [
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-delete-all"
-                },
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-delete"
-                },
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-next"
-                },
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-first"
-                },
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-last"
-                },
-                {
-                    "when": "false",
-                    "command": "language-julia.plotpane-previous"
-                }
-            ]
-        },
-        "keybindings": [
-            {
-                "command": "language-julia.executeJuliaCodeInREPL",
-                "key": "ctrl+Enter",
-                "when": "editorTextFocus && editorLangId == julia"
-            },
-            {
-                "command": "language-julia.executeJuliaCellInREPL",
-                "key": "shift+Enter",
-                "when": "editorTextFocus && editorLangId == julia"
-            },
-            {
-                "command": "language-julia.executeJuliaBlockInREPL",
-                "key": "alt+Enter",
-                "when": "editorTextFocus && editorLangId == julia"
-            },
-            {
-                "command": "language-julia.executeJuliaCodeInREPL",
-                "key": "ctrl+Enter",
-                "when": "editorTextFocus && editorLangId == juliamarkdown"
-            },
-            {
-                "command": "language-julia.plotpane-previous",
-                "key": "left",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.executeJuliaFileInREPL",
-                "key": "F5",
-                "when": "editorTextFocus && editorLangId == julia"
-            },
-            {
-                "command": "language-julia.plotpane-previous",
-                "key": "up",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-previous",
-                "key": "pageup",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-next",
-                "key": "right",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-next",
-                "key": "down",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-next",
-                "key": "pagedown",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-first",
-                "key": "home",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-last",
-                "key": "end",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-delete",
-                "key": "delete",
-                "when": "jlplotpaneFocus"
-            },
-            {
-                "command": "language-julia.plotpane-delete-all",
-                "key": "shift+delete",
-                "when": "jlplotpaneFocus"
-            }
-        ],
-        "configuration": {
-            "type": "object",
-            "title": "Julia",
-            "properties": {
-                "julia.executablePath": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Points to the julia executable.",
-                    "scope": "window"
-                },
-                "julia.runLinter": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Run the linter on active files."
-                },
-                "julia.enableCrashReporter": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Enable crash reports to be sent to the julia VS Code extension developers.",
-                    "scope": "window"
-                },
-                "julia.enableTelemetry": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Enable usage data and errors to be sent to the julia VS Code extension developers.",
-                    "scope": "window"
-                },
-                "julia.useRevise": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Load Revise.jl on startup of the REPL."
-                },
-                "julia.usePlotPane": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Display plots within vscode."
-                },
-                "julia.additionalArgs": {
-                    "type": "array",
-                    "default": [],
-                    "description": "Additional julia arguments."
-                },
-                "julia.environmentPath": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Path to a julia environment.",
-                    "scope": "window"
-                },
-                "julia.useCustomSysimage": {
-                    "type": "boolean",
-                    "default": "false",
-                    "description": "Use an existing custom sysimage when starting the REPL",
-                    "scope": "application"
-                },
-                "julia.NumThreads": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Number of threads to use for Julia processes."
-                },
-                "julia.format.indent": {
-                    "type": "integer",
-                    "default": 4,
-                    "description": "Indent size for formatting.",
-                    "scope": "window"
-                },
-                "julia.format.indents": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format file indents.",
-                    "scope": "window"
-                },
-                "julia.format.ops": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format whitespace around operators.",
-                    "scope": "window"
-                },
-                "julia.format.tuples": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format tuples.",
-                    "scope": "window"
-                },
-                "julia.format.curly": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format braces.",
-                    "scope": "window"
-                },
-                "julia.format.calls": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format function calls.",
-                    "scope": "window"
-                },
-                "julia.format.iterOps": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format loop iterators.",
-                    "scope": "window"
-                },
-                "julia.format.comments": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format comments.",
-                    "scope": "window"
-                },
-                "julia.format.docs": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Format inline documentation.",
-                    "scope": "window"
-                }
-            }
-        },
-        "configurationDefaults": {
-            "[julia]": {
-                "editor.quickSuggestions": true
-            }
-        },
-        "taskDefinitions": [
-            {
-                "type": "julia",
-                "required": [
-                    "command"
-                ],
-                "properties": {
-                    "command": {
-                        "type": "string"
-                    }
-                }
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test",
-        "update2latest": "git pull && git submodule init && git submodule update && npm install && npm run compile"
-    },
-    "dependencies": {
-        "applicationinsights": "^1.5.0",
-        "async-child-process": "^v1.1.1",
-        "async-file": "^v2.0.2",
-        "child-process-promise": "^v2.2.1",
-        "promised-temp": "^v0.1.0",
-        "vscode-jsonrpc": "^4.0.0",
-        "vscode-languageclient": "^5.2.1",
-        "which": "^1.3.1"
-    },
-    "devDependencies": {
-        "@types/mocha": "^5.2.7",
-        "@types/node": "^12.12.17",
-        "mocha": "^6.2.2",
-        "typescript": "^3.7.3",
-        "vscode": "^1.1.36"
-    }
+	"name": "language-julia",
+	"displayName": "Julia",
+	"description": "Julia Language Support",
+	"version": "0.13.2-DEV",
+	"publisher": "julialang",
+	"engines": {
+		"vscode": "^1.35.0"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"bugs": {
+		"url": "https://github.com/julia-vscode/julia-vscode/issues"
+	},
+	"homepage": "https://www.julia-vscode.org/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/julia-vscode/julia-vscode.git"
+	},
+	"icon": "images/julia-logo.png",
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Linters"
+	],
+	"activationEvents": [
+		"onCommand:language-julia.openPackageDirectory",
+		"onCommand:language-julia.changeCurrentEnvironment",
+		"onCommand:language-julia.startREPL",
+		"onCommand:language-julia.executeJuliaCodeInREPL",
+		"onCommand:language-julia.executeJuliaFileInREPL",
+		"onCommand:language-julia.toggleLinter",
+		"onCommand:language-julia.weave-open-preview",
+		"onCommand:language-julia.weave-open-preview-side",
+		"onCommand:language-julia.weave-save",
+		"onCommand:language-julia.show-plotpane",
+		"onCommand:language-julia.toggle-file-lint",
+		"onCommand:language-julia.executeJuliaCellInREPL",
+		"onCommand:language-julia.executeJuliaBlockInREPL",
+		"onCommand:language-julia.selectBlock",
+		"onLanguage:julia",
+		"onLanguage:juliamarkdown",
+		"workspaceContains:deps/build.jl",
+		"workspaceContains:test/runtests.jl",
+		"workspaceContains:benchmark/benchmarks.jl",
+		"workspaceContains:docs/make.jl"
+	],
+	"main": "./out/extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "julia",
+				"aliases": [
+					"Julia",
+					"julia"
+				],
+				"extensions": [
+					".jl"
+				],
+				"firstLine": "^#!\\s*/.*\\bjulia[0-9.-]*\\b",
+				"configuration": "./julia.configuration.json"
+			},
+			{
+				"id": "juliamarkdown",
+				"aliases": [
+					"Julia Markdown",
+					"juliamarkdown"
+				],
+				"extensions": [
+					".jmd"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "julia",
+				"scopeName": "source.julia",
+				"path": "./syntaxes/julia.json",
+				"embeddedLanguages": {
+					"meta.embedded.inline.cpp": "cpp",
+					"meta.embedded.inline.javascript": "javascript",
+					"meta.embedded.inline.markdown": "juliamarkdown",
+					"meta.embedded.inline.python": "python",
+					"meta.embedded.inline.r": "r"
+				}
+			},
+			{
+				"language": "juliamarkdown",
+				"scopeName": "text.html.markdown.julia",
+				"path": "./syntaxes/juliamarkdown.json"
+			},
+			{
+				"scopeName": "markdown.julia.codeblock",
+				"path": "./syntaxes/juliacodeblock.json",
+				"injectTo": [
+					"text.html.markdown"
+				],
+				"embeddedLanguages": {
+					"meta.embedded.block.julia": "julia"
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "language-julia.openPackageDirectory",
+				"title": "Julia: Open Package Directory in New Window"
+			},
+			{
+				"command": "language-julia.changeCurrentEnvironment",
+				"title": "Julia: Change Current Environment"
+			},
+			{
+				"command": "language-julia.startREPL",
+				"title": "Julia: Start REPL"
+			},
+			{
+				"command": "language-julia.executeJuliaCodeInREPL",
+				"title": "Julia: Execute Code"
+			},
+			{
+				"command": "language-julia.executeJuliaFileInREPL",
+				"title": "Julia: Execute File"
+			},
+			{
+				"command": "language-julia.toggleLinter",
+				"title": "Julia: Toggle Linter"
+			},
+			{
+				"command": "language-julia.weave-open-preview",
+				"title": "Julia Weave: Open Preview"
+			},
+			{
+				"command": "language-julia.weave-open-preview-side",
+				"title": "Julia Weave: Open Preview to the Side"
+			},
+			{
+				"command": "language-julia.weave-save",
+				"title": "Julia Weave: Save to File..."
+			},
+			{
+				"command": "language-julia.show-plotpane",
+				"title": "Julia: Show Plot"
+			},
+			{
+				"command": "language-julia.plotpane-next",
+				"title": "Julia: Show Next Plot",
+				"icon": {
+					"light": "./media/next.svg",
+					"dark": "./media/next-inverse.svg"
+				}
+			},
+			{
+				"command": "language-julia.plotpane-previous",
+				"title": "Julia: Show Previous Plot",
+				"icon": {
+					"light": "./media/previous.svg",
+					"dark": "./media/previous-inverse.svg"
+				}
+			},
+			{
+				"command": "language-julia.plotpane-first",
+				"title": "Julia: Show First Plot"
+			},
+			{
+				"command": "language-julia.plotpane-last",
+				"title": "Julia: Show Last Plot"
+			},
+			{
+				"command": "language-julia.plotpane-delete",
+				"title": "Julia: Delete plot",
+				"icon": {
+					"light": "./media/delete.svg",
+					"dark": "./media/delete-inverse.svg"
+				}
+			},
+			{
+				"command": "language-julia.plotpane-delete-all",
+				"title": "Julia: Delete All Plots"
+			},
+			{
+				"command": "language-julia.toggle-file-lint",
+				"title": "Julia: Toggle File Linting"
+			},
+			{
+				"command": "language-julia.toggle-log",
+				"title": "Julia: Toggle Server Logs"
+			},
+			{
+				"command": "language-julia.executeJuliaCellInREPL",
+				"title": "Julia: Execute Code Cell"
+			},
+			{
+				"command": "language-julia.executeJuliaBlockInREPL",
+				"title": "Julia: Execute Code Block"
+			},
+			{
+				"command": "language-julia.selectBlock",
+				"title": "Julia: Select Code Block"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "resourceLangId == julia",
+					"command": "language-julia.toggle-file-lint"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "language-julia.toggle-file-lint"
+				}
+			],
+			"editor/title": [
+				{
+					"when": "jlplotpaneFocus",
+					"command": "language-julia.plotpane-delete",
+					"group": "navigation@0"
+				},
+				{
+					"when": "jlplotpaneFocus",
+					"command": "language-julia.plotpane-next",
+					"group": "navigation@-1"
+				},
+				{
+					"when": "jlplotpaneFocus",
+					"command": "language-julia.plotpane-previous",
+					"group": "navigation@-2"
+				},
+				{
+					"when": "jlplotpaneFocus",
+					"command": "language-julia.plotpane-delete-all"
+				}
+			],
+			"commandPalette": [
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-delete-all"
+				},
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-delete"
+				},
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-next"
+				},
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-first"
+				},
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-last"
+				},
+				{
+					"when": "false",
+					"command": "language-julia.plotpane-previous"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "language-julia.executeJuliaCodeInREPL",
+				"key": "ctrl+Enter",
+				"when": "editorTextFocus && editorLangId == julia"
+			},
+			{
+				"command": "language-julia.executeJuliaCellInREPL",
+				"key": "shift+Enter",
+				"when": "editorTextFocus && editorLangId == julia"
+			},
+			{
+				"command": "language-julia.executeJuliaBlockInREPL",
+				"key": "alt+Enter",
+				"when": "editorTextFocus && editorLangId == julia"
+			},
+			{
+				"command": "language-julia.executeJuliaCodeInREPL",
+				"key": "ctrl+Enter",
+				"when": "editorTextFocus && editorLangId == juliamarkdown"
+			},
+			{
+				"command": "language-julia.plotpane-previous",
+				"key": "left",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.executeJuliaFileInREPL",
+				"key": "F5",
+				"when": "editorTextFocus && editorLangId == julia"
+			},
+			{
+				"command": "language-julia.plotpane-previous",
+				"key": "up",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-previous",
+				"key": "pageup",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-next",
+				"key": "right",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-next",
+				"key": "down",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-next",
+				"key": "pagedown",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-first",
+				"key": "home",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-last",
+				"key": "end",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-delete",
+				"key": "delete",
+				"when": "jlplotpaneFocus"
+			},
+			{
+				"command": "language-julia.plotpane-delete-all",
+				"key": "shift+delete",
+				"when": "jlplotpaneFocus"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Julia",
+			"properties": {
+				"julia.executablePath": {
+					"type": "string",
+					"default": "",
+					"description": "Points to the julia executable.",
+					"scope": "window"
+				},
+				"julia.runLinter": {
+					"type": "boolean",
+					"default": true,
+					"description": "Run the linter on active files."
+				},
+				"julia.enableCrashReporter": {
+					"type": [
+						"boolean",
+						"null"
+					],
+					"default": null,
+					"description": "Enable crash reports to be sent to the julia VS Code extension developers.",
+					"scope": "window"
+				},
+				"julia.enableTelemetry": {
+					"type": [
+						"boolean",
+						"null"
+					],
+					"default": null,
+					"description": "Enable usage data and errors to be sent to the julia VS Code extension developers.",
+					"scope": "window"
+				},
+				"julia.useRevise": {
+					"type": "boolean",
+					"default": true,
+					"description": "Load Revise.jl on startup of the REPL."
+				},
+				"julia.usePlotPane": {
+					"type": "boolean",
+					"default": true,
+					"description": "Display plots within vscode."
+				},
+				"julia.additionalArgs": {
+					"type": "array",
+					"default": [],
+					"description": "Additional julia arguments."
+				},
+				"julia.environmentPath": {
+					"type": [
+						"string",
+						"null"
+					],
+					"default": null,
+					"description": "Path to a julia environment.",
+					"scope": "window"
+				},
+				"julia.useCustomSysimage": {
+					"type": "boolean",
+					"default": "false",
+					"description": "Use an existing custom sysimage when starting the REPL",
+					"scope": "application"
+				},
+				"julia.NumThreads": {
+					"type": "integer",
+					"default": 1,
+					"description": "Number of threads to use for Julia processes."
+				},
+				"julia.format.indent": {
+					"type": "integer",
+					"default": 4,
+					"description": "Indent size for formatting.",
+					"scope": "window"
+				},
+				"julia.format.indents": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format file indents.",
+					"scope": "window"
+				},
+				"julia.format.ops": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format whitespace around operators.",
+					"scope": "window"
+				},
+				"julia.format.tuples": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format tuples.",
+					"scope": "window"
+				},
+				"julia.format.curly": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format braces.",
+					"scope": "window"
+				},
+				"julia.format.calls": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format function calls.",
+					"scope": "window"
+				},
+				"julia.format.iterOps": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format loop iterators.",
+					"scope": "window"
+				},
+				"julia.format.comments": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format comments.",
+					"scope": "window"
+				},
+				"julia.format.docs": {
+					"type": "boolean",
+					"default": true,
+					"description": "Format inline documentation.",
+					"scope": "window"
+				}
+			}
+		},
+		"configurationDefaults": {
+			"[julia]": {
+				"editor.quickSuggestions": true
+			}
+		},
+		"taskDefinitions": [
+			{
+				"type": "julia",
+				"required": [
+					"command"
+				],
+				"properties": {
+					"command": {
+						"type": "string"
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test",
+		"update2latest": "git pull && git submodule init && git submodule update && npm install && npm run compile"
+	},
+	"dependencies": {
+		"applicationinsights": "^1.5.0",
+		"async-child-process": "^v1.1.1",
+		"async-file": "^v2.0.2",
+		"child-process-promise": "^v2.2.1",
+		"promised-temp": "^v0.1.0",
+		"vscode-jsonrpc": "^4.0.0",
+		"vscode-languageclient": "^5.2.1",
+		"which": "^1.3.1"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.12.17",
+		"mocha": "^6.2.2",
+		"typescript": "^3.7.3",
+		"vscode": "^1.1.36"
+	},
+	"__metadata": {
+		"id": "038dd41f-4a41-48e3-87de-ab2ea4310780",
+		"publisherDisplayName": "julialang",
+		"publisherId": "205aeff7-3cad-4caf-9f66-11fb2a0cbc74"
+	}
 }
